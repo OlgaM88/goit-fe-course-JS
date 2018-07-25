@@ -141,7 +141,28 @@ const users = [
   const getUsersByFriend = (arr, name) =>
    arr.filter(item => item.friends.some(frnd => frnd === name))
    .map(obj => obj.name);
+
+   console.log(getUsersByFriend(users, 'Briana Decker')); // [ 'Sharlene Bush', 'Sheree Anthony' ]
+   console.log(getUsersByFriend(users, 'Goldie Gentry')); // [ 'Elma Head', 'Sheree Anthony' ]
+
+   const getAllSkills = arr => 
+   users.reduce((acc, user) => {
+       user.skills.map(skills => {
+           if (acc.indexOf(skills) === -1){
+               acc.push(skills);
+           }
+       });
+       return acc;
+   },[])
+   .sort();
    
-  console.log(getUsersByFriend(users, 'Briana Decker')); // [ 'Sharlene Bush', 'Sheree Anthony' ]
-  console.log(getUsersByFriend(users, 'Goldie Gentry')); // [ 'Elma Head', 'Sheree Anthony' ]
+   console.log(getAllSkills(users));
+
+   const getUserNamesSortedByFriendsCount = arr => 
+   users.sort((a, b) => a.friends.length - b.friends.length)
+   .map (user => user.name);
+
+console.log(getUserNamesSortedByFriendsCount(users)); 
+// [ 'Moore Hensley', 'Sharlene Bush', 'Elma Head', 'Carey Barr', 'Blackburn Dotson', 'Sheree Anthony', 'Ross Vazquez' ]
+
   
