@@ -1,0 +1,32 @@
+div .image-gallery {
+  margin: 0 auto;
+}
+
+.fullview {
+  margin: 0 auto;
+  width: 1280px;
+  height: 860px;
+  margin-bottom: 30px;
+}
+
+.fullview-image {
+  margin: 0 auto;
+  box-shadow: 10px aqua;
+}
+
+.list-gallery{
+  width: 1680px;
+  margin: 0 auto;
+  margin-bottom: 30px;
+  padding: 15px;
+  list-style: none;
+  border : 2px solid rgb(58, 239, 245);
+  background: aquamarine;
+  display: flex;
+  justify-content: space-between;
+  
+}
+
+.active{
+  outline: 5px solid blue;
+}
