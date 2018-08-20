@@ -21,14 +21,14 @@ const posts = [
     }
   ];
 
-const createPostCard = ({title, image, text, link}) => {
+const createPostCard = ({title, img, text, link}) => {
     const card = document.createElement('div');
     card.classList.add('post');
     
-   const img = document.createElement('img');  
-   img.classList.add('post__image');
-   img.setAttribute("src", ' ');
-   img.setAttribute("alt", "post image");
+   const image = document.createElement('img');  
+   image.classList.add('post__image');
+   image.setAttribute("src", img);
+   image.setAttribute("alt", "post image");
     
    const name = document.createElement('h2');  
    name.classList.add('post__title');
@@ -44,7 +44,7 @@ const createPostCard = ({title, image, text, link}) => {
      button.textContent = 'Read More';
 
     
-    card.append(img, name, post, button);
+    card.append(image, name, post, button);
     return card;
   }
   
