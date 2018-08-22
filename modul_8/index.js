@@ -69,12 +69,19 @@ function handlerClickImage (evt) {
 }
 
 list.addEventListener('mousedown', handlerFocus);
+list.addEventListener('mouseout', handlerFocusOut);
 
 function handlerFocus({target}){
     const nodeName = target.nodeName;
     if(nodeName == 'IMG'){
-        target.style.outline = '5px solid blue';     
+         target.classList.add('active');       
+     }
     }
-    }
+
+function handlerFocusOut(evt){
+    const nodeName = evt.target.nodeName;
+    const itemActive = document.querySelector('.active');
+    itemActive.classList.remove('active'); 
 }
-)
+   }
+  )
