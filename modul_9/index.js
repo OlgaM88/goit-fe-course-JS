@@ -1,15 +1,18 @@
 const clockface = document.querySelector(".time");
 const startBtn = document.querySelector(".js-start");
-/*const stopBtn = document.querySelector(".js-stop");*/
+const resetBtn = document.querySelector(".js-reset");
+const lapBtn = document.querySelector(".js-take-lap");
+const listItem = document.querySelector(".js-laps");
+
 
 startBtn.addEventListener('click', handleStartBtnClick);
+resetBtn.addEventListener('click', handleResetTimer);
+lapBtn.addEventListener('click', handleAddItem);
 
-/*stopBtn.addEventListener('click', handleStopBtnClick);*/
 
 const timer = {
   startTime: null,
   deltaTime: 0,
-  newTime: null,
   id: null,
   isActive: false,
    start() {
@@ -29,7 +32,6 @@ const timer = {
     this.isActive = false;
   },
  pause(){
-    this.deltaTime = this.newTime;
     updateClockface(this.deltaTime);
  },
   continue(){   
@@ -38,7 +40,7 @@ const timer = {
     this.textContent = 'Pause';
     this.id = setInterval(() => {
     const currentTime = Date.now();
-    this.deltaTime = currentTime - this.newTime;
+    this.deltaTime = currentTime - this.startTime + this.deltaTime;
     updateClockface(this.deltaTime);
     }, 100); 
 
@@ -50,43 +52,39 @@ const timer = {
   },
 };
 
-startBtn.addEventListener('click', setActiveBtn);
-
-/*stopBtn.addEventListener('click', setActiveBtn);*/
-
-function setActiveBtn ({target}){
-  const nodeName = target.nodeName;
-  const allButtons = document.querySelectorAll('button');
-  allButtons.forEach(el => 
-    {if (el != target) {
-      el.classList.remove('active');
-    if(nodeName == 'BUTTON'){
-       target.classList.add('active'); 
-  } 
-  }
-  }
-  )}
-  
 function handleStartBtnClick (){
   if (!timer.isActive && !startBtn.hasAttribute('data-set')) {
       timer.start();
       this.textContent = 'Pause';
       timer.pause();
+      resetBtn.disabled = false;
    } else if (!timer.isActive && startBtn.hasAttribute('data-set')){
       timer.continue();
       this.textContent = 'Pause';
+      resetBtn.disabled = false;
   }else{
     timer.stop();
-    this.newTime = Date.now();
-    console.log(this.newTime);
     this.textContent = 'Continue';
     startBtn.setAttribute('data-set', 'active-pause'); 
 }
+
 }
 
-function handleStopBtnClick (){
+function handleResetTimer (){
   timer.reset();
   startBtn.textContent = 'Start';
+  if (!timer.isActive || startBtn.hasAttribute('[data-set = active-pause]')){
+      resetBtn.disabled = true;
+  }else {
+    resetBtn.disabled = false;
+    timer.isActive = true;
+  }
+}
+
+function handleAddItem(){
+    const item = document.createElement('li');
+    item.innerHTML = getFormattedTime(timer.deltaTime);
+    listItem.appendChild(item);
 }
 
 function getFormattedTime(time){
