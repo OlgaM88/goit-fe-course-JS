@@ -1,40 +1,45 @@
 const refs = {
-     form: document.querySelector(".search-form"),
+     searchForm: document.querySelector(".search-form"),
      addForm: document.querySelector(".add-form"),
      input: document.querySelector("input"),
      postBtn: document.querySelector(".js-post"),
-     postBtnAll: document.querySelector(".js-post-all"),
+     postBtnAll: document.querySelector(".js-post-more"),
      btnAdd: document.querySelector(".js-add"),
      deleteBtn: document.queryCommandValue(".js-delete"),
-     result: document.querySelector(".result"),
+     resultSearchForm: document.querySelector(".result-search-form"),
      inputName: document.querySelector(".name"),
      inputAge: document.querySelector(".age"),
      btnEdit: document.querySelector(".js-edir"),
      baseUrl: "https://test-users-api.herokuapp.com/users/"
 }
-refs.form.addEventListener('click', searchFormEvent);
+refs.searchForm.addEventListener('click', searchFormEvent);
 
 function searchFormEvent(evt){
     evt.preventDefault();
     let target = evt.target;
-    let data = refs.input.value;
     if (target.nodeName !== 'BUTTON') return;
     switch(true){
     case(target.classList.contains('js-post')) : {
-        return getUserById(id);
+        return getUserById();
         break}
-    case(target.classList.contains('js-post-all')):{
+    case(target.classList.contains('js-post-more')):{
         return getAllUsers();
         break}
     case(target.classList.contains('js-delete')):{
-        return removeUser(id);
+        return removeUser();
         break}
 
     }
 }
 function getAllUsers(evt) {
-    evt.preventDefault();
-    fetch(refs.baseUrl)
+ 
+    fetch(refs.baseUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Custom-Header': 'custom value'
+      }
+    })
     .then(response => {
       if (response.ok) return response.json();
       throw new Error(`Error while fetching data: ${response.statusText}`);
@@ -44,16 +49,23 @@ function getAllUsers(evt) {
   }
 
 
-  function getUserById(id){
-    evt.preventDefault();
-    fetch(`${refs.baseUrl}${id}`)
+  function getUserById(){
+    
+    const id = refs.input.value;
+    fetch(`${refs.baseUrl}${id}`,{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Custom-Header': 'custom value'
+      }
+    })
     .then(response => {
       if (response.ok) return response.json();
       throw new Error(`Error while fetching data: ${response.statusText}`);
     })
     .then(data => {
         let user = data.data;
-        refs.result.innerHTML =`
+        refs.resultSearchForm.innerHTML =`
            <p>ID: ${user.id} </p>
            <p>Name: ${user.name}</p>
            <p>Age: ${user.age}</p>`;
@@ -61,8 +73,9 @@ function getAllUsers(evt) {
     .catch(error => console.log("Error: " + error));
   }
 
-  function removeUser(id){
-    evt.preventDefault();
+  function removeUser(){
+    
+    let id = refs.input.value;
     fetch(`${refs.baseUrl}${id}`, {
         method: "DELETE"})
     .then(response => {
@@ -71,7 +84,7 @@ function getAllUsers(evt) {
           })
     .then(data =>{ 
         let user = data.data;
-        refs.result.innerHTML = 
+        refs.resultSearchForm.innerHTML = 
         `User by ${user.id} has been deleted
         <p> Id : ${user.id}</p>
         <p> Name : ${user.name}</p>
@@ -84,25 +97,24 @@ refs.addForm.addEventListener('click', addFormEvent)
 
 function addFormEvent(evt){ 
      evt.preventDefault();
-      let target = evt.target;
-       
+      let target = evt.target; 
       if (target.nodeName !== 'BUTTON') return;
       switch(true){
       case(target.classList.contains('js-add')) : {
-      return addUser(name, age);
+      return addUser();
       break}
       case(target.classList.contains('js-edit')):{
-      return updateUser(id, user);
+      return updateUser();
       break}
         }
     }
-function addUser(name, age){
-    const userName = refs.inputName.value;
-    const userAge = refs.inputAge.value;
-    if (userName.length < 2 && (userAge.length === 0 || userAge == string)) return;
+function addUser(){
+    const name = refs.inputName.value;
+    const age = refs.inputAge.value;
+    if (name.length < 2 && (age.length !== 0 || age !== string)) return;
     fetch(refs.baseUrl, {
         method: 'POST',
-        body: JSON.stringify({name: userName, age: userAge}),
+        body: JSON.stringify({name, age}),
         headers: {
           "Content-type": "application/json; charset=UTF-8"
         }
@@ -111,13 +123,19 @@ function addUser(name, age){
         if (response.ok) return response.json();
         throw new Error(`Error while fetching data: ${response.statusText}`);
       })
+      .then(data =>{ 
+        let user = data.data;
+        refs.resultSearchForm.innerHTML = 
+        `User was adedd
+        <p> Id : ${user.id}</p>
+        <p> Name : ${user.name}</p>
+        <p> Age : ${user.age}</p>`
+     })
       .catch(error => console.log("Error: " + error));
     }
   
-function updateUser(id, user){
-        evt.preventDefault();
-        const userName = refs.inputName.value;
-        const userAge = refs.inputAge.value;
+function updateUser(){
+        let id = refs.input.value;
        const user = {
             name: userName,
             age: userAge,
@@ -132,21 +150,29 @@ function updateUser(id, user){
                 if (response.ok) return response.json();
                 throw new Error(`Error while fetching data: ${response.statusText}`);
               })
+        .then(data =>{ 
+          let user = data.data;
+          refs.resultSearchForm.innerHTML = 
+          `User by ${user.id} has been updated
+          <p> Id : ${user.id}</p>
+          <p> Name : ${user.name}</p>
+          <p> Age : ${user.age}</p>`
+       })
         .catch(error => console.log("Error: " + error));
         
 } 
 function updateViewList(obj){
-        let elem = obj.elem;
-         result.innerHTML = `<table>`;
-         const tbody = document.querySelector('tbody');
-         elem.forEach(el => {
-          let item = `<tr>
-            <td>${el.id}</td>
-            <td>${el.name}</td>
-            <td>${el.age}</td>
-             </tr>`;
-          result.innerHTML += item;
-          });
-          result.innerHTML += `</table>`
-
+        let elem = obj.data;
+         refs.resultSearchForm.innerHTML = ` <table>
+    <tr><th>ID</th><th>NAME</th><th>AGE</th></tr>
+    <tbody></tbody></table>`;
+    const tbody = document.querySelector('tbody');
+     elem.map(el => {
+     let item = `<tr>
+       <td>${el.id}</td>
+       <td>${el.name}</td>
+       <td>${el.age}</td>
+        </tr>`;
+      tbody.innerHTML += item;
+     });
   }
