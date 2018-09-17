@@ -127,7 +127,7 @@ function addUser(){
         let user = data.data;
         refs.resultSearchForm.innerHTML = 
         `User was adedd
-        <p> Id : ${user.id}</p>
+        <p> Id : ${user._id}</p>
         <p> Name : ${user.name}</p>
         <p> Age : ${user.age}</p>`
      })
