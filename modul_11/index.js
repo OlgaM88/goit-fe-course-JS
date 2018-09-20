@@ -99,6 +99,7 @@ btnFilter.addEventListener('click', handlerFilter);
 
 const filter = { size: [], color: [], release_date: [] }
 
+
 function handlerFilter (evt){
 evt.preventDefault();
 
@@ -112,22 +113,15 @@ const realeseCheck= document.querySelectorAll('input[name=release_date]:checked'
 const arrRelease = Array.from(realeseCheck).map(el => filter.release_date.push(el.value));
 console.log(filter);   
 
+function filterList (filter){
+  const newList = laptops.filter(laptop => {
+    return ((filter.size.length !== 0 ? filter.size.includes(laptop.size) : true) && (filter.color.length !== 0 ? filter.color.includes(laptop.color): true) && (filter.release_date.length !== 0 ? filter.release_date.includes(laptop.release_date): true))
+    })
+    return newList;
+   }
 let list = filterList(filter);
 console.log(list)
  }
-/*
-  function filterList ({ size, color, release_date } = filter){
- const newList = laptops.reduce((acc, laptop)=> {
-   if ((size.length !== 0 ? size.includes(laptop.size) : true) && (color.length !== 0 ? color.includes(laptop.color): true) && (release_date.length !==0 ? release_date.includes(laptop.release_date) : true)){
-    acc + laptop, []}
-   });
-   return newList;
-  }
 
-*/
-  function filterList ({filter}){
-    const newList = laptops.filter(laptop => {
-      return ((filter.size.length !== 0 ? filter.size.includes(laptop.size) : true) && (filter.color.length !== 0 ? filter.color.includes(laptop.color): true) && (filter.size.length !== 0 ? filter.release_date.includes(laptop.release_date): true))
-      })
-      return newList;
-     }
+
+
