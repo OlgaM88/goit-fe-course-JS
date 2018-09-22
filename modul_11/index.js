@@ -116,7 +116,7 @@ console.log(filter);
 function filterList (filter){
   const newList = laptops.filter(laptop => {
     return ((filter.size.length !== 0 ? filter.size.includes(laptop.size) : true) && (filter.color.length !== 0 ? filter.color.includes(laptop.color): true) && (filter.release_date.length !== 0 ? filter.release_date.includes(laptop.release_date): true))
-    })
+    });
     return newList;
    }
 let list = filterList(filter);
