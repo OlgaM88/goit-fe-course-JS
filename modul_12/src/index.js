@@ -11,13 +11,7 @@ listsMenu.addEventListener('click', handlerDeleteNote);
 
 window.onload = function() {
     lists = localStorage.lists ? JSON.parse(localStorage.lists) : [];
-  /*  const source = document.querySelector('#menu').innerHTML.trim();
-const template = Handlebars.compile(source);
-
-const markup = lists.reduce((acc, list) => acc + template(list), " ");
-listsMenu.innerHTML = markup;*/
-createList();
-
+   createList();
 }
 
 function handlerAddNote (evt){
@@ -27,17 +21,8 @@ function handlerAddNote (evt){
    lists.includes(request)? alert('Такой адресc существует!'): 
    checkURL(request)? lists.push(request) : false;
    form.reset();
-   console.log(lists);
-
    localStorage.lists = JSON.stringify(lists); 
-
-/*const source = document.querySelector('#menu').innerHTML.trim();
-const template = Handlebars.compile(source);
-
-const markup = lists.reduce((acc, list) => acc + template(list), " ");
-listsMenu.innerHTML = markup;*/
-createList();
-
+   createList();
 }
 
 function checkURL(url) {
@@ -54,7 +39,7 @@ function handlerDeleteNote ({target}) {
     parentItem.remove(); 
     const index = lists.indexOf(delItem);
     lists.splice(index, 1);
-    console.log(lists)
+    localStorage.lists = JSON.stringify(lists);
 }
 
 function createList(){

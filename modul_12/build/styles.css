@@ -1,0 +1,12 @@
+form {
+  width: 1000px;
+  display: flex;
+  margin: 0 auto;
+  justify-content: center; }
+
+button {
+  background-color: goldenrod; }
+
+.item {
+  width: 700px;
+  margin-bottom: 20px; }

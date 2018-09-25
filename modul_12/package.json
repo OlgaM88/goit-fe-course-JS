@@ -4,11 +4,28 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "gulp start",
+    "build": "gulp build"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "gulp": "^3.9.1"
+    "autoprefixer": "^9.1.5",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "cssnano": "^4.1.0",
+    "gulp": "^3.9.1",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sass": "^4.0.1",
+    "gulp-uglify": "^3.0.1",
+    "node-sass": "^4.9.3",
+    "postcss-cli": "^6.0.0",
+    "run-sequence": "^2.2.1"
+  },
+  "dependencies": {
+    "html-minifier": "^3.5.20"
   }
 }
