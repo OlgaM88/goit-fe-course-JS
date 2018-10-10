@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div class="wrapper">
+        <form class="search-form">
+          <input type="text" name="url" size="40" placeholder="Enter ...">
+          <button class="btn-add" type="submit">Add</button>
+        </form>
+        <div class="list-container">
+          <ol class="list-menu"></ol>
+        </div>
+      </div>
+        
+        <template id="menu">
+                  <li class="item">
+                    <a>{{this}}</a>
+                    <button data-action="delete-note">Delete</button>
+                  </li>     
+        </template>
+<script type="text/javascript" src="main.js?71dc8b5a7ba5611bf815"></script></body>
+</html>

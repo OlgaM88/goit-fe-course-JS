@@ -94,7 +94,7 @@ const laptops = [
   ];
 
 const btnFilter = document.querySelector('button[type = submit]');
-const result = document.querySelector('.result');
+const cardsList = document.querySelector('.cards-list');
 btnFilter.addEventListener('click', handlerFilter);
 
 const filter = { size: [], color: [], release_date: [] }
@@ -115,13 +115,19 @@ console.log(filter);
 
 function filterList (filter){
   const newList = laptops.filter(laptop => {
-    return ((filter.size.length !== 0 ? filter.size.includes(laptop.size) : true) && (filter.color.length !== 0 ? filter.color.includes(laptop.color): true) && (filter.release_date.length !== 0 ? filter.release_date.includes(laptop.release_date): true))
+    return ((filter.size.length !== 0 ? filter.size.includes(String(laptop.size)) : true) && (filter.color.length !== 0 ? filter.color.includes(String(laptop.color)): true) && (filter.release_date.length !== 0 ? filter.release_date.includes(String(laptop.release_date)): true))
     });
     return newList;
    }
 let list = filterList(filter);
 console.log(list)
+
+const source = document.querySelector('#cards').innerHTML.trim();
+ const template = Handlebars.compile(source);
+ 
+ const markup = list.reduce((acc, el) => acc + template(el), " ");
+ cardsList.innerHTML = markup;
+
  }
 
-
-
+ 

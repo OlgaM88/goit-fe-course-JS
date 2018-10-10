@@ -18,11 +18,11 @@ function handlerAddNote (evt){
     evt.preventDefault();
     let target = evt.target;
     const request = input.value;
-   lists.includes(request)? alert('Такой адресc существует!'): 
-   checkURL(request)? lists.push(request) : false;
-   form.reset();
-   localStorage.lists = JSON.stringify(lists); 
-   createList();
+    lists.includes(request)? alert('Такой адресc существует!'): 
+    checkURL(request)? lists.push(request) : false;
+    form.reset();
+    localStorage.lists = JSON.stringify(lists); 
+    createList();
 }
 
 function checkURL(url) {
@@ -45,7 +45,6 @@ function handlerDeleteNote ({target}) {
 function createList(){
     const source = document.querySelector('#menu').innerHTML.trim();
     const template = Handlebars.compile(source);
-    
     const markup = lists.reduce((acc, list) => acc + template(list), " ");
     listsMenu.innerHTML = markup;
 }

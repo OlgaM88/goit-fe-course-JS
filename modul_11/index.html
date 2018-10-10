@@ -36,7 +36,20 @@
         <button type="submit">Filter</button>
         <button type="reset">Clear</button>
       </form>
-      <p class="result"></p>
+      <p class="result">
+        <ul class="cards-list"></ul>
+      </p>
+
+      <template id="cards">
+        <li class="card">
+          <img src="{{img}}" alt ="{{name}}">
+          <h2>Name : {{name}} </h2>
+          <p>Size : {{size}}</p>
+          <p>Release : {{release_date}}</p>
+          <p>Color : {{color}}</p>
+          <p>Price : {{price}}</p>
+        </li>     
+</template>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.12/handlebars.min.js"></script>
     <script src="index.js"></script>
 </body>
