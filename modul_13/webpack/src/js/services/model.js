@@ -1,4 +1,4 @@
-class ListModel  {
+  export default class ListModel  {
     constructor(items) {
       this._items = items || [];
       this._selectedIndex = -1;
@@ -6,6 +6,7 @@ class ListModel  {
   
     getItems() {
       return this._items.slice();
+      this._items = list;
     }
   
     addItem(item) {

@@ -18,13 +18,13 @@ export default class Controller {
   
     init() {
         window.onload = function() {
-            this._items = localStorage.this._items ? JSON.parse(localStorage.this._items) : [];
+            this._items = localStorage.getItem("links");
            this._view.createList();
         }
       }
     
   
-    handleAddRecipe(e) {
+    handleAddNote (e) {
       e.preventDefault();
   
       let target = evt.target;
@@ -32,7 +32,7 @@ export default class Controller {
       this._items.includes(request)? alert('Такой адресc существует!'): 
       this._view.checkURL(request)? this._items.push(request) : false;
       this._view.refs.form.reset();
-      localStorage.this._items = JSON.stringify(this._items); 
+      localStorage.setItem('links', JSON.stringify(this._items)); 
       this._view.createList();
     }
   
@@ -47,7 +47,7 @@ export default class Controller {
         parentItem.remove(); 
         const index = this._items.indexOf(delItem);
         this._items.splice(index, 1);
-        localStorage.this._items = JSON.stringify(this._items);
+        localStorage.setItem('links', JSON.stringify(this._items));
     }
   
 }
