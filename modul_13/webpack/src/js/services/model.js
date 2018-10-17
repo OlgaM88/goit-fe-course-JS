@@ -1,5 +1,5 @@
-  export default class ListModel  {
-    constructor(items) {
+  export default class Model  {
+    constructor(items = []) {
       this._items = items || [];
       this._selectedIndex = -1;
     }
@@ -13,19 +13,12 @@
       this._items.push(item);
     }
   
-    removeItemAt(index) {
-      const item = this._items.splice(index, 1)[0];
-      if (index === this._selectedIndex) {
-        this.selectedIndex = -1;
+    removeItem(id) {
+      const index = this._items.findIndex(item => item.id == id);
+      
+      if (index > -1) {
+          this.items.splice(index, 1);
+          this.emit('change', this.items);
       }
-    }
-  
-    get selectedIndex () {
-      return this._selectedIndex;
-    }
-  
-    set selectedIndex(index) {
-      const previousIndex = this._selectedIndex;
-      this._selectedIndex = index;
-    }
   }
+}

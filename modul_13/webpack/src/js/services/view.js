@@ -4,15 +4,14 @@ export default class View {
   
       this.refs.form = document.querySelector('form');
       this.refs.btnAdd = this.refs.form.querySelector('.btn-add');
-      this.refs.recipeList = document.querySelector('.recipe-list');
       this.refs.input = document.querySelector('input');
       this.refs.listContainer = document.querySelector('.list-container');
-      this.refs.listsMenu = document.querySelector('.list-menu');
+      this.refs.listsMenu = this.refs.listContainer.querySelector('.list-menu');
     }
   
     init(list) {
         const markup = list.reduce((string, note) => {
-          return string + this.createRecipeMarkup(note);
+          return string + this.createNoteMarkup(note);
         }, '');
     
         this.refs.listsMenu.insertAdjacentHTML('beforeend', markup);
@@ -23,10 +22,9 @@ export default class View {
         this.refs.listsMenu.insertAdjacentHTML('beforeend', markup);
       }
 
-      deleteNote() {
-        const index = this._model.selectedIndex;
-        this._model.removeItemAt(index);
-
+      deleteNote(id) {
+        const el = this.refs.listsMenu.querySelector(`.list-note[data-id="${id}"]`);
+        el.remove();
       }
 
     createNoteMarkup({ text }) {
