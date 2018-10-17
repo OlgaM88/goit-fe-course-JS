@@ -27,9 +27,9 @@ export default class View {
         el.remove();
       }
 
-    createNoteMarkup({ text }) {
+    createNoteMarkup({ text, id }) {
     return `
-      <li class="list-note" style="outline: 1px solid #212121;">
+      <li class="list-note" data-id="${id}"  style="outline: 1px solid #212121;">
         <p>${text}</p>
         <div class="actions">
           <button data-action="delete">Удалить</button>
