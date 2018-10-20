@@ -10,7 +10,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: '[name].js',
-    publicPath: 'https://olgam88.github.io/goit-fe-course-JS/modul_13/webpack/build/',
+    publicPath: 'https://olgam88.github.io/goit-fe-course-JS/modul_13/webpack/build',
   },
   module: {
     rules: [
