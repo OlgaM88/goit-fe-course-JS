@@ -1,7 +1,6 @@
   export default class Model  {
     constructor(items = []) {
       this._items = items || [];
-      this._selectedIndex = -1;
     }
   
     getItems() {
@@ -15,10 +14,8 @@
   
     removeItem(id) {
       const index = this._items.findIndex(item => item.id == id);
-      
       if (index > -1) {
-          this.items.splice(index, 1);
-          this.emit('change', this.items);
+          this._items.splice(index, 1);
       }
   }
 }

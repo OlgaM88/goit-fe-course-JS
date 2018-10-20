@@ -28,13 +28,12 @@ export default class Controller {
 
       const text = this._view.refs.input.value;
       this._items.includes(text)? alert('Такой адресc существует!'): 
-      this._view.checkURL(text)? this._items.push(text) : false;
-      this._view.refs.form.reset();
+      this._view.checkURL(text)?  
       this._model.addItem({
         id: Date.now(),
-        text }).then(createdItem => {
-          this._view.addNote(createdItem);
-        });
+        text }) : false;
+      this._view.addNote(text);
+      this._view.refs.form.reset();
 
       localStorage.setItem('links', JSON.stringify(this._items)); 
       this._view.init(this._items);
@@ -52,9 +51,9 @@ export default class Controller {
     }
 
     deleteNote(id) {
-        this._model.removeItem(id).then(deletedId => {
-        this._view.deleteNote(deletedId);
-      });
+        this._model.removeItem(id);
+        this._view.deleteNote(id);
+      }
+      
     }
   
-}
