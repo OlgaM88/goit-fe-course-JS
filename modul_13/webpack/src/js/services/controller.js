@@ -60,7 +60,6 @@ export default class Controller {
       const action = target.dataset.action;
       if (nodeName !== 'BUTTON' || action !== 'delete-note') return;
       const parentItem = Number(target.closest('.list-note').dataset.id);
-      console.log(parentItem);
       this.deleteNote(parentItem);
       localStorage.setItem('links', JSON.stringify(this._model._items));
   }
